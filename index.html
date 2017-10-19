@@ -1,0 +1,855 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Neurohackweek 2017 D3 Tutorial</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<style>
+
+		i {
+			color: #F52F57;
+		}
+
+		b {
+			color: #F52F57;
+		}
+
+		code {
+			color: #F7B267;
+		}
+
+		strong {
+			color: #F52F57;
+		}
+
+		iframe {
+			background-color: white;
+		}
+
+		</style>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+
+				<section  id="title">
+
+					<h2> Interactive Data Visualization with D3.js</h2>
+					<h4>Neuroinformatics Working Group, Oct 19</h4>
+					<p>
+						<small>Created by <a href="http://akeshavan.github.io">Anisha Keshavan</a> / <a href="http://twitter.com/akeshavan_">@akeshavan_</a></small>
+						<br>
+						<large><a href="http://akeshavan.github.io/nhw2017_d3">akeshavan.github.io/nhw2017_d3</a></large>
+
+					</p>
+
+				</section>
+
+				<section id="why">
+          <h3> What is Informatics? </h3>
+					<p> Informatics became a thing when we started collecting lots of data, and it was hard: </p>
+
+					<ol>
+
+            <li> Our data is too large to comprehend: need to  <i> visualize</i> it better</li>
+						<li> Our data is too large to work on alone: need to <i> collaborate </i> </li>
+
+          </ol>
+
+        </section>
+
+				<section data-markdown>
+					<script type="text/template">
+						### The future of informatics is Javascript ?!
+
+						* the **web browser** is the BEST medium for communication
+						* we should take advantage of it to
+							* **visualize**
+							* interactively **explore**
+							* **communicate**
+
+						our large, complex datasets
+
+					</script>
+				</section>
+
+				<section data-background-iframe="http://roygbiv.mindboggle.info/roygbiv/web/index.html" data-background-interactive>
+
+				</section>
+
+				<section data-background-iframe="https://yeatmanlab.github.io/AFQBrowser-demo/" data-background-interactive>
+
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						### Today's "Trick"
+
+						#### Interactive Data Viz on the Browser
+
+						* D3.js is a **javascript** library that's used to create plots
+						* Usually, beautiful, interactive plots, like the ones for the [New York Times](https://flowingdata.com/tag/new-york-times/)
+
+					</script>
+				</section>
+
+
+        <section id="what">
+          <h3> More specifically, <a href="http://d3js.org">D3.js </a> </h3>
+          <ul>
+						<li> stands for Data Driven Documents </li>
+            <li>A JavaScript library for manipulating HTML based on data</li>
+            <li>There are many beautiful <a href="https://github.com/d3/d3/wiki/Gallery">examples</a></li>
+						<li> I like this <a href="http://mbostock.github.io/d3/talk/20111116/bundle.html"> network diagram </a></li>
+          </ul>
+        </section>
+
+
+        <section>
+          <h3>But, its hard</h3>
+          <ul>
+            <li>The examples aren't very reusable</li>
+						<li> Not plug and play like ggplot, matplotlib </li>
+          </ul>
+        </section>
+
+        <section id="others">
+          <h3>What about D3-based libraries?</h3>
+          <ul>
+            <li><a href="https://plot.ly/">Plotly</a></li>
+            <li><a href="http://nvd3.org/">NVD3</a></li>
+            <li><a href="http://dimplejs.org/">Dimple</a></li>
+            <li><a href="https://vega.github.io/vega/">Vega</a></li>
+            <li><a href="http://c3js.org/">C3.js</a></li>
+            <li><a href="https://dc-js.github.io/dc.js/">DC.js</a></li>
+          </ul>
+        </section>
+
+        <section id="basics">
+          <h3>These libraries are great to start</h3>
+          <ul>
+          <li> I usually need to tweak them </li>
+
+					<li>
+						The goal  is to learn the <b>basic concepts</b>
+					</li>
+					<li>
+						Start with an <b>interactive bar plot</b>
+					</li>
+					</ul>
+        </section>
+
+        <section id="intro">
+          <h3>Browser Basics:</h3>
+          <ul>
+          <li> HTML: the <b>content</b> </li>
+          <li> CSS: the <b> style </b> </li>
+          <li> JS: the <b> interaction </b> </li>
+          </ul>
+					<br>
+					Open the <a href="https://codepen.io/akeshavan/pen/qXLGXy">CodePen</a> to get started
+        </section>
+
+
+
+				<section data-background-iframe="https://codepen.io/akeshavan/pen/qXLGXy" data-background-interactive>
+
+				</section>
+
+
+				<section data-markdown>
+					<script type="text/template">
+						### Tags
+
+						* There are standard tags that tell browsers the structure of the content
+						* Most tags are wrapped in `<tagname>` and end with `</tagname>`
+						* Example: `<h1></h1>` for a header
+
+					</script>
+				</section>
+
+				<section data-background-iframe="https://codepen.io/akeshavan/pen/JrxYBJ" data-background-interactive>
+
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						### Tags, continued
+
+						* <a href="https://www.w3schools.com/TAGs/default.asp">Here</a> is a list of all tags
+						* Tags can have different **attributes**, (like `href` for the `<a>` tag)	and **styles**
+						* The `<div>` tag defines a section. It can be empty, or have child elements
+
+					</script>
+				</section>
+
+				<section data-background-iframe="https://codepen.io/akeshavan/pen/VMgvEQ?editors=1111" data-background-interactive>
+
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						### The Document Object Model
+
+						* the browser turns your HTML into **objects**
+
+						![](devtools.png)
+
+						* **command + option + i** on mac chrome
+
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						### The div element and style
+
+						* The `<div>` element defines a section. In the `body` of HTML, add:
+
+						```html
+						<div class="bar" style="width: 100px;">100</div>
+<div class="bar" style="width: 150px;">150</div>
+<div class="bar" style="width: 60px;">60</div>
+						```
+
+					</script>
+				</section>
+
+				<section data-background-iframe="https://codepen.io/akeshavan/pen/aLXvxw" data-background-interactive>
+
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						### CSS: the style
+
+						*  in the `css` section, add:
+
+						```css
+						.bar {
+							background: steelblue; /* color of bars */
+							height: 30px; /* height/width of bars */
+							margin: 5px; /* spacing between bars */
+							color: white; /* text color */
+							text-align: right;
+							padding-right: 5px; /* space between text and right of bar */
+							padding-top: 5px; /* space between text and top of bar */
+						}
+
+						```
+
+					</script>
+				</section>
+
+				<section data-background-iframe="https://codepen.io/akeshavan/pen/brOyLE" data-background-interactive>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						### First bar graph
+
+						* we defined a <b>class</b> for the style of our divs (bar)
+						* all divs with class `bar` have the same style
+						* we also gave each `<div>` its own `width` property (different bar lengths)
+
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						### JavaScript: Manipulate the DOM
+
+						* We can dynamically add bars to our page:
+
+						```javascript
+						var newdiv = document.createElement("DIV");
+						newdiv.className = "bar";
+						newdiv.style.width = "80px";
+						newdiv.appendChild(document.createTextNode("80"));
+						document.body.appendChild(newdiv);
+						```
+
+
+					</script>
+				</section>
+
+				<section data-background-iframe="https://codepen.io/akeshavan/pen/xLmNYz" data-background-interactive>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						### JavaScript: Add interaction
+
+						* We can even add some interaction:
+
+						```javascript
+						// get all elements with class = "bar"
+						var myElements = document.getElementsByClassName("bar")
+						//myElements is a list
+
+						//iterate through the list in a for loop
+						for (i=0; i<myElements.length; i++){
+							// the second arg to addEventListener is a callback
+							myElements[i].addEventListener("click", function(e){
+								// change the style of the clicked element
+								e.target.style.background = "black"
+							})
+						}
+						```
+
+					</script>
+				</section>
+
+				<section data-background-iframe="https://codepen.io/akeshavan/pen/OjrYvP" data-background-interactive>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						### D3
+
+						makes manipulating the DOM easier
+
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						### D3 Bar chart
+
+						in the body, add a `div` with an `id` attribute
+
+						```html
+						<div id="plotArea"></div>
+						```
+
+						in the javascript section, do
+
+						```javascript
+						var data = [100, 150, 60, 80, 140]
+
+d3.select("#plotArea").selectAll(".bar")
+  .data(data).enter().append("div")
+  .attr("class", "bar")
+  .style("width", function(d){return d+"px"})
+  .text(function(d){return d})
+  .on("click", function(d){
+    d3.select(this).style("background", "black")
+  })
+						```
+
+					</script>
+				</section>
+
+				<section data-background-iframe="https://codepen.io/akeshavan/pen/rzogdY" data-background-interactive>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						Define some data as a list:
+
+						```javascript
+						var data = [100, 150, 60, 80, 140]
+						```
+
+						Select all elements with class `bar` within `plotArea`:
+
+						```javascript
+						d3.select("#plotArea").selectAll(".bar")
+							```
+
+						Bind data to these elements:
+
+						```javascript
+						d3.select("#plotArea").selectAll(".bar").data(data)
+						```
+
+						Create new `div` elements with `.enter().append()`:
+
+						```javascript
+						.enter().append("div")
+						```
+
+					</script>
+				</section>
+
+				<section data-background-iframe="https://codepen.io/akeshavan/pen/YrBwKj" data-background-interactive>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						### 5 new divs were added to our DOM.
+
+						What if some of the divs are already there?
+
+						```html
+						<div id="plotArea">
+							<div class="bar">
+						</div>
+						```
+
+
+					</script>
+				</section>
+
+				<section data-background-iframe="https://codepen.io/akeshavan/pen/eGxJzW" data-background-interactive>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						 Then, give the elements the `bar` class:
+
+						```javascript
+						.attr("class", "bar")
+						```
+
+					</script>
+				</section>
+
+				<section data-background-iframe="https://codepen.io/akeshavan/pen/WZPrRQ" data-background-interactive>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						Set the width for each element based on its bound data:
+
+						```javascript
+						.style("width", function(d){return d+"px"})
+							```
+
+					</script>
+				</section>
+
+				<section data-background-iframe="https://codepen.io/akeshavan/pen/QqYypN?editors=1111" data-background-interactive>
+				</section>
+
+
+				<section data-markdown>
+					<script type="text/template">
+				Add text based on the bound data:
+
+				```javascript
+				.text(function(d){return d})
+				```
+
+				Add a `click` listener:
+
+				```javascript
+				.on("click", function(d){
+					    d3.select(this).style("background", "black")
+					  })
+				```
+
+				where `this` is the particular element that was clicked, and `d` is its data
+
+			</script>
+		</section>
+
+		<section data-background-iframe="https://codepen.io/akeshavan/pen/rzogdY" data-background-interactive>
+		</section>
+
+		<section data-markdown>
+			<script type="text/template">
+		### Transitions
+
+		* Help avoid **"change blindness"** among other things
+		* Brings your data to life!
+		* [source](https://uxplanet.org/functional-animation-in-ux-design-what-makes-a-good-transition-d6e7b4344e5e)
+		* Check out [r2d3.us](http://www.r2d3.us/visual-intro-to-machine-learning-part-1/) for a visual intro to machine learning
+
+	</script>
+</section>
+
+		<section data-markdown>
+			<script type="text/template">
+		### Transitions
+
+		To add a transition, set styles before and after `.transition().duration()`
+		```javascript
+		d3.select("#plotArea").selectAll(".bar")
+	    .data(data).enter().append("div")
+	    .attr("class", "bar")
+	    .style("width", 0) //initially set the bar width to 0
+	    .transition() //transition
+	    .duration(1000) //duration is 1000ms
+			//bars will start at 0 and "grow" to the correct height
+	    .style("width", function(d){return d+"px"})
+	    .text(function(d){return d})
+		```
+
+	</script>
+</section>
+
+<section data-background-iframe="https://codepen.io/akeshavan/pen/rGPxGG" data-background-interactive>
+</section>
+
+<section data-markdown>
+	<script type="text/template">
+### Transitions on events
+
+Lets change our event listeners by `select`-ing `this`
+Change color on mouse hover:
+
+```javascript
+d3.select("#plotArea").selectAll(".bar")
+.on("mouseover",  function(d){
+	d3.select(this).style("background", "black")
+})
+.on("mouseout",  function(d){
+	d3.select(this).style("background", "steelblue")
+})
+```
+
+</script>
+</section>
+
+<section data-background-iframe="https://codepen.io/akeshavan/pen/xXMBXO" data-background-interactive>
+</section>
+
+<section data-markdown>
+	<script type="text/template">
+### Transition + data update
+
+Lets make the bar double in size when clicked:
+
+```javascript
+d3.select("#plotArea").selectAll(".bar")
+.on("click", function(d, i){
+	d3.select(this)
+		.transition()
+		.ease(d3.easeBounce) //make it bounce!
+		.duration(1000)
+		.style("width", function(d){return d*1.5+"px"})
+		.text(function(d){return d*1.5})
+
+	//re-bind the data
+	data[i] = data[i] * 1.5
+	d3.select("#plotArea").selectAll(".bar")
+		.data(data)
+})
+```
+
+</script>
+</section>
+
+<section data-background-iframe="https://codepen.io/akeshavan/pen/vJvwRM" data-background-interactive>
+</section>
+
+
+<section data-markdown>
+	<script type="text/template">
+### Updating Data:
+
+* We have realtime data streaming in
+* We want to dynamically change the data to switch between variables
+
+</script>
+</section>
+
+<section data-markdown>
+	<script type="text/template">
+
+Create buttons to simulate streaming data:
+
+```html
+<button onclick="addData()"> Add data </button>
+<button onclick="randomData()"> Randomize data </button>
+<button onclick="removeData()"> Remove data </button>
+<div id="plotArea"></div>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+	<script type="text/template">
+
+
+in the script, move our d3 lines into a function.
+We will call it each time new data comes in
+
+```javascript
+function render(data){
+	d3.select("#plotArea").selectAll(".bar")
+		.data(data).enter().append("div")
+		.attr("class", "bar")
+		.style("width", 0)
+		.transition()
+		.duration(1000)
+		.style("width", function(d){return d+"px"})
+		.text(function(d){return d})
+
+	d3.select("#plotArea").selectAll(".bar")
+	.on("mouseover",  function(d){
+		d3.select(this).style("background", "black")
+	})
+	.on("mouseout",  function(d){
+		d3.select(this).style("background", "steelblue")
+	})
+	.on("click", function(d, i){
+		d3.select(this)
+			.transition()
+			.ease(d3.easeBounce)
+			.duration(1000)
+			.style("width", function(d){return d*1.5+"px"})
+			.text(function(d){return d*1.5})
+
+		//re-bind the data
+		data[i] = data[i] * 1.5
+		d3.select("#plotArea").selectAll(".bar")
+			.data(data)
+	})
+}
+
+render(data)
+```
+
+</script>
+</section>
+
+
+<section data-markdown>
+	<script type="text/template">
+
+
+Also, add the functions for our buttons:
+
+```javascript
+function randomInt(min, max){
+	// return a random integer between min and max
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function addData(){
+	data.push(randomInt(30,200)) //append a random number to data
+	render(data)
+}
+
+function randomData(){
+	for (i=0; i<data.length; i++){
+		data[i] = randomInt(30,200)
+	}
+	render(data)
+}
+
+function removeData(){
+	data.pop() //remove last element
+	render(data)
+}
+```
+
+Does this work?
+
+</script>
+</section>
+
+<section data-background-iframe="https://codepen.io/akeshavan/pen/RZEmyz" data-background-interactive>
+</section>
+
+<section data-markdown>
+	<script type="text/template">
+		# Its Broken
+
+</script>
+</section>
+
+
+<section data-markdown>
+	<script type="text/template">
+		### The Update
+		* `enter().append("div")` only adds **new** divs and applies following methods to new items
+		* split up adding data and updating the DOM:
+
+		```javascript
+		d3.select("#plotArea").selectAll(".bar")
+			.data(data).enter().append("div")
+			.attr("class", "bar")
+			.style("width", 0)
+
+		d3.select("#plotArea").selectAll(".bar")
+			.transition()
+			.duration(1000)
+			.style("width", function(d){return d+"px"})
+			.text(function(d){return d})
+		```
+
+</script>
+</section>
+
+<section data-background-iframe="https://codepen.io/akeshavan/pen/aLXdeQ" data-background-interactive>
+</section>
+
+<section data-markdown>
+	<script type="text/template">
+		### The Remove
+		* `exit().remove()` removes any extra elements leftover
+
+		```javascript
+		// remove data
+		d3.select("#plotArea").selectAll(".bar").data(data)
+			.exit()
+			.remove()
+		```
+
+		or, with a transition:
+
+		```javascript
+    d3.select("#plotArea").selectAll(".bar").data(data)
+      .exit()
+      .transition()
+      .duration(1000)
+      .style('opacity', 0)
+      .remove()
+		```
+
+</script>
+</section>
+
+<section data-background-iframe="https://codepen.io/akeshavan/pen/XaowYZ" data-background-interactive>
+</section>
+
+<section data-markdown>
+	<script type="text/template">
+		### Summary
+
+		* So far we have made a **bar plot**
+		* based on some data
+		* using **D3.js** to manipulate the DOM (instead of hardcoding HTML)
+		* added transtions
+		* added events that fire on mouse hover, mouse click
+		  * these events can do **anything you want** - not only plot related
+
+	</script>
+</section>
+
+<section data-markdown>
+	<script type="text/template">
+		### Key concepts:
+
+		* Not just JS: need to know **HTML + CSS + JS**
+		* Selectors: `d3.select().selectAll()`
+		* Data binding: `.data(data)`
+		* Setting styles: `.style()` and attributes: `.attr()`
+		* Transitions: `.transition().duration()`
+		* Events: `.on()`
+		* Updaters: `d3.enter().append()` and `.exit().remove()`
+
+	</script>
+</section>
+
+<section data-markdown>
+	<script type="text/template">
+		### Next Steps: **SVG**
+
+		* SVG is similar to HTML (tags, attributes, styles)
+		* Can draw any shape, curves, lines, etc
+
+	</script>
+</section>
+
+<section data-background-iframe="https://akeshavan.github.io/nhw2017_d3/" data-background-interactive>
+</section>
+
+<section data-background-iframe="https://akeshavan.github.io/dl_mystery/" data-background-interactive>
+</section>
+
+<section data-markdown>
+	<script type="text/template">
+		### Neuroinformatics examples: binding 2D plots w/ 3D data
+
+		* [ROYGBIV](http://roygbiv.mindboggle.info), for visualizing Mindboggle outputs
+		* [AFQ-Browser](https://yeatmanlab.github.io/AFQBrowser-demo/), for visualizing AFQ outputs
+		* [MetaSearch](http://openneu.ro/metasearch/), search for open neuroimaging data
+		* [Medulina](http://medulina.com/dashboard.html?user_id=5991b1bdf441bd00082835a3), a dashboard for a game to crowdsource medical image segmentation
+
+	</script>
+</section>
+
+<section data-markdown>
+	<script type="text/template">
+		### Resources/References
+
+		* [square.github.io D3 tutorial](https://square.github.io/intro-to-d3/web-standards/)
+		* [Aysegul Yonet's tutorial](http://yonet.github.io/d3-codeclass/#/)
+		* [this scatterplot example](http://bl.ocks.org/weiglemc/6185069)
+		* d3 hierarchical circle plot for a [connectome](http://nbviewer.jupyter.org/gist/akeshavan/d41ea27d12bc9ff61b37319170e10898/arbitraryHclustering.ipynb)
+
+</script>
+</section>
+
+<section data-markdown>
+	<script type="text/template">
+		### Questions?
+
+</script>
+</section>
+
+
+
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
